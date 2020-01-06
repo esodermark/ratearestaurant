@@ -1,0 +1,24 @@
+<%- include('./partials/nav-reviews.ejs') %>
+
+<div class="container center">
+    <img src="\<%= img %>" class="restaurant-img" alt="">
+    <h4>Reviews</h4>
+    <% if(results.length) { %>
+        <% results.forEach((result) => { %>
+            <p>"<%= result.comment %>"</p>
+        <% }) %>
+    <% } %>
+
+    <div class="row">
+        <form method="POST" action="/reviews/addcomment/<%= url %>" class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="textarea2" name="comment" class="materialize-textarea" data-length="120"></textarea>
+              <label for="textarea2">Write your comment</label>
+            </div>
+          </div>
+          <input type="submit" name="addComment" value="add comment" class="yellow darken-3 btn z-depth-0">
+        </form>
+
+    </div>
+</div>

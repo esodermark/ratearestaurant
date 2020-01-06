@@ -1,0 +1,90 @@
+<div class="overlay" id="overlay"></div>
+
+<%- include('./partials/nav.ejs') %>
+
+<h4 class="center red-text text-lighten-3 h4">Restaurants</h4>
+
+<div class="container">
+    <div class="row">
+        <% if (results.length) { 
+            %>
+                <% results.forEach((result) => {
+                %>
+                <div class="col s6 md3">
+                    <div class="card z-depth-0">
+                        <% if(result.img != '') { %>
+                            <img src="<%= result.img %>" class="pizza">
+                        <% } else { %>
+                            <img src="img\default.svg" class="pizza">
+                        <% } %>
+                        <div class="card-content center">
+                                <p><strong><%= result.title %></strong></p>
+                                <br>
+                                <p> <%= result.description %> </p>
+                        </div>
+                        <div class="card-action card-action-container">
+                            <a href="#" id="edit<%= result.id %>" class="more brand-text">edit</a>
+                            <a href="/reviews/<%= result.id %>" class="reviews yellow-text text-darken-2">reviews</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="editContainer<%= result.id %>" class="edit-restaurant-container">
+                    <p class="cancel" id="cancel">x</p>
+                  <div class="row">
+                    <form class="col s12">
+                      <div class="row">
+                        <div class="input-field col s5">
+                          <input name="title" type="text" class="validate" value="<%= result.title %>">
+                          <label for="title">Restaurant name</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s7">
+                          <input name="location" type="text" class="validate" value="<%= result.location %>">
+                          <label for="location">Address</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s9">
+                          <input name="description" type="text" class="validate" value="<%= result.description %>">
+                          <label for="description">Description</label>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <input type="submit" class="btn right brand" value="Save changes">
+                </div>
+                <%
+                }) %>
+                <%
+            } %>
+    </div>
+
+</div>
+
+<div id="input" class="add-restaurant-container">
+    <p class="cancel" id="cancel">x</p>
+  <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s5">
+          <input id="title" type="text" class="validate">
+          <label for="title">Restaurant name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s7">
+          <input id="location" type="text" class="validate">
+          <label for="location">Address</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s9">
+          <input id="description" type="text" class="validate">
+          <label for="description">Description</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <input type="submit" class="btn right brand" value="Add Restaurant">
+</div>
