@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const port = 3000;
+const port = process.env.port || 3000;
 const mysql = require('mysql');
 const expressLayouts = require('express-ejs-layouts')
 const app = express();
@@ -54,15 +54,15 @@ app.get('/createdb', (req, res) => {
 
 
 // insert restaurant
-app.get('/addrestaurant', (req, res) => {
-    let restaurants = {title: 'Pizzeria Angelo', description: 'This is Pizzeria Angelo', comments: 'This is superb'};
-    let sql = 'INSERT INTO restaurants SET ?';
-    let query = db.query(sql, restaurants, (err, result) => {
-        if(err) throw err;
-        console.log(result);
-        res.send('Restaurant added ...');
-    } );
-});
+// app.get('/addrestaurant', (req, res) => {
+//     let restaurants = {title: 'Pizzeria Angelo', description: 'This is Pizzeria Angelo', comments: 'This is superb'};
+//     let sql = 'INSERT INTO restaurants SET ?';
+//     let query = db.query(sql, restaurants, (err, result) => {
+//         if(err) throw err;
+//         console.log(result);
+//         res.send('Restaurant added ...');
+//     } );
+// });
 
 // update restaurant
 app.get('/updaterestaurant', (req, res) => {
