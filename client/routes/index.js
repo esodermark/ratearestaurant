@@ -28,12 +28,13 @@ router.get('/', (req, res) => {
     },
     body: JSON.stringify(comment)
     };
-    fetch("http://localhost:5000/index", option)
-            .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+    fetch("https://git.heroku.com/stark-springs-34233.git/index", option)
+            .then(r =>  r.text().then(data => ({status: r.status, body: data})))
             .then(function(data){
                 renderData(data);
             });
     function renderData(data){
+        console.log(data);
         res.render('index', {results: data.body});
     }
 });
