@@ -24,14 +24,20 @@ document.addEventListener("DOMContentLoaded", function (e){
         fetch("http://localhost:3000/getNumRestaurants", option)
                 .then(r =>  r.json().then(data => ({status: r.status, body: data})))
                 .then(function(data){
-                   console.log(data.body.body.length);
-                   for(let i = 1; i <= data.body.body.length; i++){
-                       document.getElementById('edit' + i).addEventListener('click', function(e){
-                        document.getElementById('editContainer' + i).style.display = "block";
+                   let restaurants = data.body.body;
+                   restaurants.forEach((restaurant) => {
+                       document.getElementById('edit' + restaurant.id).addEventListener('click', function(e){
+                        document.getElementById('editContainer' + restaurant.id).style.display = "block";
                         overlay.style.display = "block";
-                       });
+                       })
+                   })
+                //    for(let i = 1; i <= data.body.body.length; i++){
+                //        document.getElementById(data.body).addEventListener('click', function(e){
+                //         document.getElementById('editContainer' + i).style.display = "block";
+                //         overlay.style.display = "block";
+                //        });
                        
-                   }
+                //    }
                 //    let numRestaurants = data.body.body;
                 //    numRestaurants.forEach((restaurant) => {
                 //        document.getElementById('edit' + )

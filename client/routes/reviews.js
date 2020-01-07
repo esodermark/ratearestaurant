@@ -18,6 +18,7 @@ const fetch = require('node-fetch');
 router.post('/reviews/addcomment/:id', (req, res) => {
     const comment = {
         comment: req.body.comment,
+        rating: req.body.rating,
         restaurant_id: req.params.id
     }
 
@@ -56,8 +57,7 @@ router.get('/reviews/:id', (req, res) => {
                 renderData(data);
             });
     function renderData(data){
-        console.log(data.body[0].img);
-        res.render('reviews', {results: data.body, url: req.params.id, img: data.body[0].img});
+        res.render('reviews', {results: data.body, url: req.params.id});
     }
 })
 

@@ -10,15 +10,17 @@
             %>
                 <% results.forEach((result) => {
                 %>
-                <div class="col s6 md3">
+                <div class="col s12 m6">
                     <div class="card z-depth-0">
                         <% if(result.img != '') { %>
                             <img src="<%= result.img %>" class="pizza">
                         <% } else { %>
                             <img src="img\default.svg" class="pizza">
                         <% } %>
-                        <div class="card-content center">
+                        <div class="card-content center info">
                                 <p><strong><%= result.title %></strong></p>
+                                <br>
+                                <p>Address: <%= result.location %></p>
                                 <br>
                                 <p> <%= result.description %> </p>
                         </div>
@@ -31,7 +33,7 @@
                 <div id="editContainer<%= result.id %>" class="edit-restaurant-container">
                     <p class="cancel" id="cancel">x</p>
                   <div class="row">
-                    <form class="col s12">
+                    <form action="/edit/<%= result.id %>" method="POST" class="col s12">
                       <div class="row">
                         <div class="input-field col s5">
                           <input name="title" type="text" class="validate" value="<%= result.title %>">
@@ -50,9 +52,13 @@
                           <label for="description">Description</label>
                         </div>
                       </div>
+                      <input type="submit" class="btn right brand" value="Save changes">
                     </form>
                   </div>
-                  <input type="submit" class="btn right brand" value="Save changes">
+                  
+                  <form action="/delete/<%= result.id %>" method="POST">
+                    <input type="submit" class="btn left delete" value="Delete restaurant">
+                  </form>
                 </div>
                 <%
                 }) %>
@@ -65,26 +71,26 @@
 <div id="input" class="add-restaurant-container">
     <p class="cancel" id="cancel">x</p>
   <div class="row">
-    <form class="col s12">
+    <form class="col s12" action="/addrestaurant" method="POST">
       <div class="row">
         <div class="input-field col s5">
-          <input id="title" type="text" class="validate">
+          <input id="title" type="text" name="title" class="validate">
           <label for="title">Restaurant name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s7">
-          <input id="location" type="text" class="validate">
+          <input id="location" type="text" name="location" class="validate">
           <label for="location">Address</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s9">
-          <input id="description" type="text" class="validate">
+          <input id="description" type="text" name="description" class="validate">
           <label for="description">Description</label>
         </div>
       </div>
+      <input type="submit" class="btn right brand" value="Add Restaurant">
     </form>
   </div>
-  <input type="submit" class="btn right brand" value="Add Restaurant">
 </div>

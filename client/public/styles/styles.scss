@@ -37,7 +37,7 @@ nav {
 }
 
 .burger, .pizza {
-    width: 200px;
+    width: 230px;
     margin: 40px auto -30px;
     display: block;
     position: relative;
@@ -102,4 +102,35 @@ nav {
     margin: 0 auto;
     padding: 0px 40px 40px 40px;
     border-radius: 8px;
+
+    .delete {
+        background: rgb(223, 80, 80);
+    }
+}
+
+.info {
+    margin-top: -80px;
+}
+
+@media only screen and (max-width: 40em) {
+    .pizza {
+        width: 100px;
+        top: -70px;
+    }
+
+    .edit-restaurant-container {
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 75vh;
+        border-radius: 0;
+    }
+
+    .add-restaurant-container {
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 75vh;
+        border-radius: 0;
+    }
 }

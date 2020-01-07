@@ -1,24 +1,33 @@
 <%- include('./partials/nav-reviews.ejs') %>
 
 <div class="container center">
-    <img src="\<%= img %>" class="restaurant-img" alt="">
+    
+    <% if(results[0] != undefined) { %>
+      <img src="\<%= results[0].img %>" class="restaurant-img" alt="">
+    <% } else { %>
+      <img src="\img\default.svg" class="restaurant-img" alt="">
+    <% } %>
     <h4>Reviews</h4>
     <% if(results.length) { %>
         <% results.forEach((result) => { %>
-            <p>"<%= result.comment %>"</p>
+            <p><strong><%= result.rating %>/5</strong> "<%= result.comment %>"</p>
         <% }) %>
     <% } %>
 
+    
     <div class="row">
         <form method="POST" action="/reviews/addcomment/<%= url %>" class="col s12">
           <div class="row">
-            <div class="input-field col s12">
+            <h6 class="left-align red-text text-lighten-3">Rate from 1 to 5 and leave a comment </h6>
+            <div class="input-field col s1">
+              <input type="number" name="rating" min="1" max="5" value="5">
+            </div>
+            <div class="input-field col s10">
               <textarea id="textarea2" name="comment" class="materialize-textarea" data-length="120"></textarea>
               <label for="textarea2">Write your comment</label>
             </div>
           </div>
-          <input type="submit" name="addComment" value="add comment" class="yellow darken-3 btn z-depth-0">
+          <input type="submit" name="addComment" value="add review" class="yellow darken-3 btn z-depth-0">
         </form>
-
     </div>
 </div>
