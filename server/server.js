@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const port = process.env || 5000;
+const PORT = process.env.PORT || 5000;
 const mysql = require('mysql');
 const app = express();
 
@@ -93,4 +93,4 @@ app.post('/getreviews', (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(port, () => console.log(`listening on port ${port}!`));
+app.listen(PORT, () => console.log(`listening on port ${PORT}!`));

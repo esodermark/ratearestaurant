@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="col m7 s12">
+      <div class="card register-container">
+        <h3 class="center-align">
+           Register
+        </h3>
+        <%- include('./partials/messages') %>
+        <form action="/users/register" method="POST">
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="validate"
+                placeholder="Enter Email"
+                value="<%= typeof email != 'undefined' ? email : '' %>"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <label for="password">Password</label>
+              <input
+              type="password"
+              id="password"
+              name="password"
+              class="validate"
+              placeholder="Create Password"
+              value="<%= typeof password != 'undefined' ? password : '' %>"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <label for="password2">Confirm Password</label>
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              class="validate"
+              placeholder="Confirm Password"
+              value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+            />
+            </div>
+          </div>
+          <input type="submit" class="btn right" value="Register">Register</input>
+        </form>
+        <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>
+      </div>
+    </div>
+  </div>

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const fetch = require('node-fetch');
+const { ensureAuthenticated } = require('../public/config/auth');
 
 // router.get('/', (req, res) => {
 //     res.render('index', {title: '', description: '', comments: ''});
@@ -28,13 +29,34 @@ router.get('/', (req, res) => {
     },
     body: JSON.stringify(comment)
     };
-    fetch("https://git.heroku.com/stark-springs-34233.git/index", option)
-            .then(r =>  r.text().then(data => ({status: r.status, body: data})))
+    fetch("http://localhost:5000/index", option)
+            .then(r =>  r.json().then(data => ({status: r.status, body: data})))
             .then(function(data){
                 renderData(data);
             });
     function renderData(data){
-        console.log(data);
+        res.render('unauth', {results: data.body});
+    }
+});
+
+// select restaurants
+router.get('/ratearestaurant', ensureAuthenticated, (req, res) => {
+    const comment = {
+        
+    }
+    const option = {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(comment)
+    };
+    fetch("http://localhost:5000/index", option)
+            .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+            .then(function(data){
+                renderData(data);
+            });
+    function renderData(data){
         res.render('index', {results: data.body});
     }
 });
@@ -56,11 +78,10 @@ router.post('/addrestaurant', (req, res) => {
     fetch("http://localhost:5000/addrestaurant", option)
     .then(response => {
         response.text().then(function(data) {
-            console.log(data);
             if(data.status){
-                res.redirect('/');
+                res.redirect('/ratearestaurant');
             }else{ 
-                res.redirect('/');
+                res.redirect('/ratearestaurant');
             }
         });
     });
@@ -74,7 +95,6 @@ router.post('/edit/:id', (req, res) => {
         description: req.body.description,
         location: req.body.location
     }
-    console.log(restaurant.restaurant_id);
     const option = {
     method: "POST",
     headers: {
@@ -88,7 +108,7 @@ router.post('/edit/:id', (req, res) => {
                 renderData(data);
             });
     function renderData(data){
-        res.redirect('/');
+        res.redirect('/ratearestaurant');
     }
 })
 
@@ -111,7 +131,7 @@ router.post('/delete/:id', (req, res) => {
                 renderData(data);
             });
     function renderData(data){
-        res.redirect('/');
+        res.redirect('/ratearestaurant');
     }
 })
 

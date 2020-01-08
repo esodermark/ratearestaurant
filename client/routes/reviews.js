@@ -39,6 +39,7 @@ router.post('/reviews/addcomment/:id', (req, res) => {
     }
 });
 
+// get reviews
 router.get('/reviews/:id', (req, res) => {
     const restaurant = {
         restaurant_id: req.params.id
@@ -58,6 +59,29 @@ router.get('/reviews/:id', (req, res) => {
             });
     function renderData(data){
         res.render('reviews', {results: data.body, url: req.params.id});
+    }
+})
+
+// get reviews unauth
+router.get('/unauth/reviews/:id', (req, res) => {
+    const restaurant = {
+        restaurant_id: req.params.id
+    }
+
+    const option = {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(restaurant)
+    };
+    fetch("http://localhost:5000/getreviews", option)
+            .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+            .then(function(data){
+                renderData(data);
+            });
+    function renderData(data){
+        res.render('unauth-reviews', {results: data.body, url: req.params.id});
     }
 })
 

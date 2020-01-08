@@ -1,0 +1,18 @@
+<%- include('./partials/unauth-nav.ejs') %>
+
+<div class="container center">
+    
+    <% if(results[0] != undefined) { %>
+      <img src="\<%= results[0].img %>" class="restaurant-img" alt="">
+    <% } else { %>
+      <img src="\img\default.svg" class="restaurant-img" alt="">
+    <% } %>
+    <h4>Reviews</h4>
+    <% if(results.length) { %>
+        <% results.forEach((result) => { %>
+            <p><strong><%= result.rating %>/5</strong> "<%= result.comment %>"</p>
+        <% }) %>
+    <% } %>
+
+    
+<h6><a class="red-text text-lighten-3" href="/login">Login to leave a review</a></h6>

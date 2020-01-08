@@ -1,0 +1,39 @@
+  
+<div class="container">
+    <div class="col m7 s12">
+      <div class="card login-container">
+        <h3 class="text-center mb-3"> Login</h4>
+        <%- include('./partials/messages') %>
+        <form action="/users/login" method="POST">
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="validate"
+                placeholder="Enter Email"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col m6 s12">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="validate"
+                placeholder="Enter Password"
+              />
+            </div>
+          </div>
+          <input type="submit" class="btn right" value="Login">Login</input>
+        </form>
+        <p class="lead mt-4">
+          No Account? <a href="/users/register">Register</a>
+        </p>
+      </div>
+    </div>
+  </div>

@@ -1,11 +1,14 @@
 const express = require('express');
 const path = require('path');
-const port = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 const mysql = require('mysql');
 const expressLayouts = require('express-ejs-layouts')
 const app = express();
 const fetch = require('node-fetch');
-
+const mongoose = require('mongoose');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport'); 
 
 // create connection
 const db = mysql.createConnection({
@@ -23,12 +26,43 @@ db.connect((err) => {
     console.log('MySql Connected ...')
 })
 
+// passport config
+require('../client/public/config/passport')(passport);
+
 // ejs
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
+// body parser
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// express session
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+}));
+
+// passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// connect flash
+app.use(flash());
+
+// global vars
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+})
+
+// mongoose
+mongoose.connect('mongodb://localhost/restaurant', {useUnifiedTopology: true, useNewUrlParser: true})
+.then(() => console.log('Connected to database'))
+.catch(err => console.log(`Failed to connect to database - Error: ${err.message}`));
 
 // create db
 app.get('/createdb', (req, res) => {
@@ -113,11 +147,13 @@ app.get('/updaterestaurant', (req, res) => {
 // import client routes
 const IndexRouter = require('../client/routes/index');
 const ReviewsRouter = require('../client/routes/reviews');
+const UsersRouter = require('../client/routes/users');
 
 // setting client to use routes
 app.use('/', IndexRouter);
 app.use('/', ReviewsRouter);
+app.use('/users', UsersRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(port, () => console.log(`listening on port ${port}!`));
+app.listen(PORT, () => console.log(`listening on port ${PORT}!`));

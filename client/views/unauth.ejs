@@ -1,0 +1,38 @@
+<div class="overlay" id="overlay"></div>
+
+<%- include('./partials/unauth-nav.ejs') %>
+
+<h4 class="center red-text text-lighten-3 h4">Restaurants</h4>
+
+<div class="container">
+    <div class="row">
+        <% if (results.length) { 
+            %>
+                <% results.forEach((result) => {
+                %>
+                <div class="col s12 m6">
+                    <div class="card z-depth-0">
+                        <% if(result.img != '') { %>
+                            <img src="<%= result.img %>" class="pizza">
+                        <% } else { %>
+                            <img src="img\default.svg" class="pizza">
+                        <% } %>
+                        <div class="card-content center info">
+                                <p><strong><%= result.title %></strong></p>
+                                <br>
+                                <p>Address: <%= result.location %></p>
+                                <br>
+                                <p> <%= result.description %> </p>
+                        </div>
+                        <div class="card-action card-action-container">
+                            <a href="#" id="edit<%= result.id %>" class="more brand-text"></a>
+                            <a href="/unauth/reviews/<%= result.id %>" class="reviews yellow-text text-darken-2">reviews</a>
+                        </div>
+                    </div>
+                </div>
+                <%
+                }) %>
+                <%
+            } %>
+    </div>
+</div>
